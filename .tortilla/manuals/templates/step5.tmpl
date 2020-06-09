@@ -119,7 +119,9 @@ This is how our `package.json` should look like at this point:
 > Notice we have lines there that mention `jest-junit`. 
 > Those are needed for our own tutorial CI, you don't have to use it.
 
-{{{ diffStep "3.1" module="server" files="package.json" }}}
+{{{ diffStep "5.4" module="server" files="package.json" }}}
+
+{{{ diffStep "5.4" module="server" files="tests/global-setup.ts" }}}
 
 Now we're gonna test the `chats` query in our GraphQL schema. To do so, we will setup an Apollo Client and send a query request to our back-end, and then we will match the received response with a pre-defined snapshot. Luckily, we don't have to set an actual client, since the tests and the implementation of the back-end live right next to each other, thus, we will install a package which will help us achieving so:
 
@@ -127,7 +129,7 @@ Now we're gonna test the `chats` query in our GraphQL schema. To do so, we will 
 
 We will define the test suite under the `tests/queries` folder in a file called `getChats.test.ts`:
 
-{{{ diffStep "3.2" module="server" files="tests/queries/getChats.test.ts" }}}
+{{{ diffStep "5.5" module="server" files="tests/queries/getChats.test.ts" }}}
 
 In the test function, we create a new instance of the Apollo-GraphQL server using our schema, and we query some data against it thanks to the fake client created by [`apollo-server-testing`](https://www.npmjs.com/package/apollo-server-testing).
 
@@ -141,7 +143,7 @@ So let's do our first test run for the server:
 
 The expected result should be a projection of the data stored in the `db.ts` file.
 
-{{{ diffStep "3.2" module="server" files="tests/queries/__snapshots__" }}}
+{{{ diffStep "5.5" module="server" files="tests/queries/__snapshots__" }}}
 
 Always be sure to observe the snapshot before moving on! The received result isn't necessarily what you'd expect. Also it's not a good practice to store production data in the snapshot because it's subject to changes. Normally we would set up another instance of the DB for testing purposes, but since our DB is a mock and doesn't represent real data, there's no need to at this stage.
 
